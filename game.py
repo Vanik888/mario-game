@@ -90,7 +90,7 @@ def main():
             y += PLATFORM_HEIGHT
             x = 0
 
-        hero.update(left, right, up, down) # передвижение
+        hero.update(left, right, up, down, platforms) # передвижение
         entities.draw(screen)
 
         pygame.display.update()     # обновление и вывод всех изменений на экран

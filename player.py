@@ -20,7 +20,7 @@ class Player(sprite.Sprite):
         self.image.fill(Color(COLOR))
         self.rect = Rect(x, y, WIDTH, HEIGHT) # прямоугольный объект
 
-    def update(self,  left, right, up, down):
+    def update(self,  left, right, up, down, platforms):
         if left:
             self.xvel = -MOVE_SPEED # Лево = x- n
 
@@ -40,4 +40,21 @@ class Player(sprite.Sprite):
             self.xvel = 0
 
         self.rect.x += self.xvel # переносим свои положение на xvel
+        self.collide(self.xvel, 0, platforms)
+
         self.rect.y += self.yvel
+        self.collide(0, self.yvel, platforms)
+
+    def collide(self, xvel, yvel, platforms):
+        for p in platforms:
+            if sprite.collide_rect(self, p):
+                if xvel > 0: # движение вправо
+                    self.rect.right = p.rect.left
+                if xvel < 0: # движение влево
+                    self.rect.left = p.rect.right
+                if yvel > 0: # движение вниз
+                    self.rect.bottom = p.rect.top
+                if yvel < 0: # движение вверх
+                    self.rect.top = p.rect.bottom
+
+
