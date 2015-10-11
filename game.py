@@ -3,7 +3,7 @@
 
 import pygame
 from pygame import *
-
+from blocks import *
 
 WIN_WIDTH = 800
 WIN_HEIGHT = 640
@@ -18,11 +18,49 @@ def main():
                                           # будем использовать как фон
     bg.fill(Color(BACKGROUND_COLOR))      # Заливаем поверхность сплошным цветом
 
+
+    level = [
+           "-------------------------",
+           "-                       -",
+           "-                       -",
+           "-                       -",
+           "-            --         -",
+           "-                       -",
+           "--                      -",
+           "-                       -",
+           "-                   --- -",
+           "-                       -",
+           "-                       -",
+           "-      ---              -",
+           "-                       -",
+           "-   -----------         -",
+           "-                       -",
+           "-                -      -",
+           "-                   --  -",
+           "-                       -",
+           "-                       -",
+           "-------------------------"]
+
+
+
     while 1: # Основной цикл программы
         for e in pygame.event.get(): # Обрабатываем события
             if e.type == QUIT:
                 raise SystemExit, "QUIT"
         screen.blit(bg, (0, 0))      # Каждую итерацию необходимо всё перерисовывать
+        x = 0
+        y = 0
+        for row in level:
+            for col in row:
+                if col == "-":
+                    pf = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
+                    pf.fill(Color(PLATFORM_COLOR))
+                    screen.blit(pf, (x, y))
+                x += PLATFORM_WIDTH
+            y += PLATFORM_HEIGHT
+            x = 0
+
+
         pygame.display.update()     # обновление и вывод всех изменений на экран
 
 
