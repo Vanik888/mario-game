@@ -41,7 +41,3 @@ class Player(sprite.Sprite):
 
         self.rect.x += self.xvel # переносим свои положение на xvel
         self.rect.y += self.yvel
-
-
-    def draw(self, screen): # Выводим себя на экран
-        screen.blit(self.image, (self.rect.x,self.rect.y))

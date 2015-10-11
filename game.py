@@ -27,6 +27,10 @@ def main():
     up = False
     down = False
 
+    entities = pygame.sprite.Group() # Все объекты
+    platforms = [] # то, во что мы будем врезаться или опираться
+    entities.add(hero)
+
     level = [
            "-------------------------",
            "-                       -",
@@ -79,15 +83,15 @@ def main():
         for row in level:
             for col in row:
                 if col == "-":
-                    pf = Surface((PLATFORM_WIDTH, PLATFORM_HEIGHT))
-                    pf.fill(Color(PLATFORM_COLOR))
-                    screen.blit(pf, (x, y))
+                    pf = Platform(x, y)
+                    entities.add(pf)
+                    platforms.append(pf)
                 x += PLATFORM_WIDTH
             y += PLATFORM_HEIGHT
             x = 0
 
         hero.update(left, right, up, down) # передвижение
-        hero.draw(screen) # отображение
+        entities.draw(screen)
 
         pygame.display.update()     # обновление и вывод всех изменений на экран
 
