@@ -24,7 +24,8 @@ def main():
     hero = Player(55, 55)
     left = False
     right = False
-
+    up = False
+    down = False
 
     level = [
            "-------------------------",
@@ -48,22 +49,29 @@ def main():
            "-                       -",
            "-------------------------"]
 
-
-
     while 1: # Основной цикл программы
         timer.tick(60)
         for e in pygame.event.get(): # Обрабатываем события
             if e.type == QUIT:
                 raise SystemExit, "QUIT"
+
             if e.type == KEYDOWN and e.key == K_LEFT:
-               left = True
+                left = True
             if e.type == KEYDOWN and e.key == K_RIGHT:
-               right = True
+                right = True
+            if e.type == KEYDOWN and e.key == K_UP:
+                up = True
+            if e.type == KEYDOWN and e.key == K_DOWN:
+                down = True
 
             if e.type == KEYUP and e.key == K_RIGHT:
-               right = False
+                right = False
             if e.type == KEYUP and e.key == K_LEFT:
                 left = False
+            if e.type == KEYUP and e.key == K_UP:
+                up = False
+            if e.type == KEYUP and e.key == K_DOWN:
+                down = False
 
         screen.blit(bg, (0, 0))      # Каждую итерацию необходимо всё перерисовывать
         x = 0
@@ -78,7 +86,7 @@ def main():
             y += PLATFORM_HEIGHT
             x = 0
 
-        hero.update(left, right) # передвижение
+        hero.update(left, right, up, down) # передвижение
         hero.draw(screen) # отображение
 
         pygame.display.update()     # обновление и вывод всех изменений на экран
@@ -86,3 +94,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
